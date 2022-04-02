@@ -6,5 +6,7 @@ export default {
   success: 'Action was successful',
   loginTitle: 'Log in',
   loginBtn: 'Login',
-  password: 'Password'
+  logoutBtn: 'Logout',
+  password: 'Password',
+  welcome: 'Welcome'
 }

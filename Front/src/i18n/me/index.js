@@ -6,5 +6,7 @@ export default {
   success: 'Uspješno',
   loginTitle: 'Prijava',
   loginBtn: 'Prijavi se', 
-  password: 'Šifra'
+  logoutBtn: 'Odjavi se',
+  password: 'Šifra',
+  welcome: 'Dobrodošli'
 }
