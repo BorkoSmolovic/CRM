@@ -29,7 +29,7 @@
 
               <div>
                 <q-toolbar class="bg-white text-primary q-px-none">
-      <q-btn :label="$t('loginBtn')" to="/" type="button" color="primary" />
+      <q-btn :label="$t('loginBtn')" type="button" color="primary" @click="login()"/>
                 <q-space />
                 <q-btn-toggle
                   v-model="$i18n.locale"
@@ -50,18 +50,32 @@
 <script>
 import { defineComponent } from "vue";
 import { ref } from "vue";
+import axios from 'axios';
 
 export default defineComponent({
+  name: "Login componenet",
   setup() {
     return {
-      email: ref("borko.smolovic@gmail.com"),
-      password: ref("qwer"),
+      email: ref("admin@gmail.com"),
+      password: ref("admin.12"),
       options: [
         { label: "ME", value: "me" },
         { label: "EN", value: "en-us" },
       ],
     };
   },
+  methods: {
+    login(){
+      axios.get('/sanctum/csrf-cookie').then(response => {
+    axios.post('/login', {
+      email: this.email,
+      password: this.password
+    }).then(response => {
+   this.$router.push('/')
+});
+});
+    }
+  }
 });
 </script>
 

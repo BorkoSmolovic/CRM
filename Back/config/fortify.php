@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'guard' => 'web',
+    'guard' => 'web',       
 
     /*
     |--------------------------------------------------------------------------
@@ -119,7 +119,7 @@ return [
     */
 
     'views' => false,
-
+    
     /*
     |--------------------------------------------------------------------------
     | Features
@@ -131,7 +131,7 @@ return [
     |
     */
 
-    'features' => [
+    'features' => [ 
         Features::registration(),
         Features::resetPasswords(),
         // Features::emailVerification(),

@@ -1,7 +1,7 @@
 import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
-
+import axios from 'axios'
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;
@@ -25,6 +25,34 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE)
   })
+
+  Router.beforeEach((to, from, next) => {
+
+    //ruter provjerava da li je korisnik logovan za sve stranice razlicite osim login, 
+    //za provjeru se koristi metoda koja kontaktira server
+    //ukoliko nije logovan ruter odbija da ga prebaci
+    //u ostalom nastavlja normalno koristeci next()
+
+      axios
+        .get("/api/checkAuth")
+        .then((response) => {
+          //korisnik je ulogovan moze dalje
+          if (to.name === 'Login') {
+            Router.push('/')
+          }else{
+            next()
+          }
+        }).catch(error => {
+          //korisnik nije ulogovan, redirekt na login stranu
+          if (to.name !== 'Login') {
+            Router.push('/Login')
+          }else{
+            next()
+          }
+        })
+ 
+  })
+
 
   return Router
 })
