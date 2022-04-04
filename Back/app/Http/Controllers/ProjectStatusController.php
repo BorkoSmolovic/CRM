@@ -15,7 +15,7 @@ class ProjectStatusController extends Controller
      */
     public function index()
     {
-        //
+        return ProjectStatus::all();
     }
 
     /**

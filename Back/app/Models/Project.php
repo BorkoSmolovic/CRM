@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
          /**
      * The attributes that are mass assignable.
@@ -18,7 +19,8 @@ class Project extends Model
         'title',
         'description',
         'deadline',
-        'status_id'
+        'status_id',
+        'owner_id'
     ];
 
     /**
@@ -27,8 +29,6 @@ class Project extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'owner_id',
-        'is_Active'
     ];
 
     /**
@@ -38,4 +38,14 @@ class Project extends Model
      */
     protected $casts = [
     ];
+
+
+    protected $with = [
+        'status',
+    ];
+
+    public function status()
+    {
+        return $this->belongsTo(ProjectStatus::class);
+    }
 }

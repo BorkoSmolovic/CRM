@@ -23,9 +23,6 @@ class PermissionRole extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'permission_id',
-        'role_id',
-        'is_Active'
     ];
 
     /**

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use App\Models\Project;
 
 class ProjectController extends Controller
@@ -13,9 +13,17 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $page = $request->query("page");
+        $size = $request->query("size");
+
+        if($page == null && $size == null)
+            return Project::all();
+
+//pagination takes only certain amount of records as instructed ffrom front
+        return Project::query()->skip($page*$size)->take($size)->get();
     }
 
     /**
@@ -34,9 +42,25 @@ class ProjectController extends Controller
      * @param  \App\Http\Requests\StoreProjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProjectRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255|string',
+            'description' => 'required|string',
+            'deadline' => 'required|date',
+            'status_id' => 'required|integer|exists:project_statuses,id',
+
+        ]);
+
+        $project = Project::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'deadline' => $request->deadline,
+            'status_id' => $request->status_id,
+            'owner_id' => $request->user()->id,
+        ]);
+
+        return Project::find($project->id);
     }
 
     /**
@@ -68,9 +92,23 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255|string',
+            'description' => 'required|string',
+            'deadline' => 'required|date',
+            'status_id' => 'required|integer|exists:project_statuses,id',
+        ]);
+
+        $project->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'deadline' => $request->deadline,
+            'status_id' => $request->status_id,
+        ]);
+
+        return Project::find($project->id);
     }
 
     /**
@@ -81,6 +119,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        return $project->delete();
     }
 }

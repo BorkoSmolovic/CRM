@@ -23,9 +23,6 @@ class Permission extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'name',
-        'label',
-        'is_Active'
     ];
 
     /**

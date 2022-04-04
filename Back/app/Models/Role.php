@@ -23,9 +23,6 @@ class Role extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'name',
-        'label',
-        'is_Active'
     ];
 
     /**
@@ -35,4 +32,8 @@ class Role extends Model
      */
     protected $casts = [
     ];
+
+    protected $with = [
+    ];
+
 }

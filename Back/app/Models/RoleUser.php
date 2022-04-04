@@ -23,9 +23,6 @@ class RoleUser extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'role_id',
-        'user_id',
-        'is_Active'
     ];
 
     /**
@@ -35,4 +32,9 @@ class RoleUser extends Model
      */
     protected $casts = [
     ];
+
+    protected $with = [
+        'userRoles',
+    ];
+
 }
