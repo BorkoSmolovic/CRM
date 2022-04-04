@@ -12,7 +12,7 @@
           </q-card-section>
           <q-card-section>
             <div class="text-center q-pt-lg">
-              <div class="col text-h6 ellipsis">{{$t('loginTitle')}}</div>
+              <div class="col text-h6 ellipsis">{{ $t("loginTitle") }}</div>
             </div>
           </q-card-section>
           <q-card-section>
@@ -29,15 +29,19 @@
 
               <div>
                 <q-toolbar class="bg-white text-primary q-px-none">
-      <q-btn :label="$t('loginBtn')" type="button" color="primary" @click="login()"/>
-                <q-space />
-                <q-btn-toggle
-                  v-model="$i18n.locale"
-                  toggle-color="secondary"
-                  :options="options"
-                />
-      </q-toolbar>
-               
+                  <q-btn
+                    :label="$t('loginBtn')"
+                    type="button"
+                    color="primary"
+                    @click="login()"
+                  />
+                  <q-space />
+                  <q-btn-toggle
+                    v-model="$i18n.locale"
+                    toggle-color="secondary"
+                    :options="options"
+                  />
+                </q-toolbar>
               </div>
             </q-form>
           </q-card-section>
@@ -50,7 +54,7 @@
 <script>
 import { defineComponent } from "vue";
 import { ref } from "vue";
-import axios from 'axios';
+import axios from "axios";
 
 export default defineComponent({
   name: "Login componenet",
@@ -65,17 +69,32 @@ export default defineComponent({
     };
   },
   methods: {
-    login(){
-      axios.get('/sanctum/csrf-cookie').then(response => {
-    axios.post('/login', {
-      email: this.email,
-      password: this.password
-    }).then(response => {
-   this.$router.push('/')
-});
-});
-    }
-  }
+    login() {
+      axios.get("/sanctum/csrf-cookie").then((response) => {
+        axios
+          .post("/login", {
+            email: this.email,
+            password: this.password,
+          })
+          .then((response) => {
+            this.$router.push("/");
+            this.$swal({
+              icon: "success",
+              title: this.$t('loginSuccess'),
+              timer: 1500,
+            });
+          })
+          .catch((error) => {
+            this.$swal({
+              icon: "error",
+              title: this.$t('error'),
+              text: this.$t('loginError'),
+              timer: 3000,
+            });
+          });
+      });
+    },
+  },
 });
 </script>
 

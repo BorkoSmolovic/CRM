@@ -8,5 +8,10 @@ export default {
   loginBtn: 'Login',
   logoutBtn: 'Logout',
   password: 'Password',
-  welcome: 'Welcome'
+  welcome: 'Welcome',
+  users: 'Users',
+  projects: 'Projects',
+  loginSuccess: 'Login successful',
+  error: 'Error',
+  loginError: 'These credentials do not match our records',
 }

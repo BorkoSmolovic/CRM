@@ -25,27 +25,15 @@
             v-if="$q.screen.gt.sm"
           >
           </q-btn>
-          <!-- <q-btn round dense flat color="white" icon="fab fa-github" type="a" href="https://github.com/pratik227/quasar-admin" target="_blank">
-          </q-btn>
-          <q-btn round dense flat icon="fas fa-heart" style="color:#9d4182 !important;" type="a" href="https://github.com/sponsors/pratik227" target="_blank">
-          </q-btn>
-          <q-btn round dense flat color="white" icon="notifications">
-            <q-badge color="red" text-color="white" floating>
-              5
-            </q-badge>
-            <q-menu
-            >
-              <q-list style="min-width: 100px">
-                <messages></messages>
-                <q-card class="text-center no-shadow no-border">
-                  <q-btn label="View All" style="max-width: 120px !important;" flat dense
-                         class="text-indigo-8"></q-btn>
-                </q-card>
-              </q-list>
-            </q-menu>
-          </q-btn> -->
 
-          <q-btn color="blue" class="glossy" :label="$t('logoutBtn')" push size="md" @click="logout()"/>
+          <q-btn
+            color="blue"
+            class="glossy"
+            :label="$t('logoutBtn')"
+            push
+            size="md"
+            @click="logout()"
+          />
         </div>
       </q-toolbar>
     </q-header>
@@ -57,7 +45,23 @@
       class="bg-primary text-white"
     >
       <q-list>
-        <q-item to="/" active-class="q-item-no-link-highlighting">
+        <q-item to="/users" active-class="q-item-no-link-highlighting">
+          <q-item-section avatar>
+            <q-icon name="people_alt" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{$t('users')}}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/projects" active-class="q-item-no-link-highlighting">
+          <q-item-section avatar>
+            <q-icon name="list_alt" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{$t('projects')}}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <!-- <q-item to="/" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="dashboard" />
           </q-item-section>
@@ -243,7 +247,7 @@
           </q-item-section>
         </q-item>
 
-        <!--        not completed-->
+       
         <q-item to="/Calendar" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="date_range" />
@@ -253,15 +257,15 @@
           </q-item-section>
         </q-item>
 
-        <!--        not completed-->
-        <!--        <q-item to="/Taskboard" active-class="q-item-no-link-highlighting">-->
-        <!--          <q-item-section avatar>-->
-        <!--            <q-icon name="done"/>-->
-        <!--          </q-item-section>-->
-        <!--          <q-item-section>-->
-        <!--            <q-item-label>Taskboard</q-item-label>-->
-        <!--          </q-item-section>-->
-        <!--        </q-item>-->
+     
+               <q-item to="/Taskboard" active-class="q-item-no-link-highlighting">
+                 <q-item-section avatar>
+                   <q-icon name="done"/>
+                 </q-item-section>
+                 <q-item-section>
+                   <q-item-label>Taskboard</q-item-label>
+                 </q-item-section>
+               </q-item>
 
         <q-item to="/Pagination" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
@@ -314,7 +318,7 @@
               </q-item>
             </q-expansion-item>
           </q-expansion-item>
-        </q-expansion-item>
+        </q-expansion-item> -->
       </q-list>
     </q-drawer>
 
@@ -356,27 +360,26 @@ export default defineComponent({
   },
   methods: {
     logout() {
-      axios
-        .post("/logout")
-        .then((response) => {
-          this.$router.push("/Login");
-        });
+      axios.post("/logout").then((response) => {
+        this.$router.push("/Login");
+      });
     },
-    getUserInfo(){
+    getUserInfo() {
       axios
         .get("/api/user")
         .then((response) => {
-          this. username = response.data.name
-        }).catch(error => {
-          //korisnik nije ulogovan redirekt na login stranu
-          if(error.response.status == 401){
+          this.username = response.data.name;
+        })
+        .catch((error) => {
+          //if user isnt logged he is pushed to login page
+          if (error.response.status == 401) {
             this.$router.push("/Login");
           }
         });
-    }
+    },
   },
-  created(){
+  created() {
     this.getUserInfo();
-  }
+  },
 });
 </script>

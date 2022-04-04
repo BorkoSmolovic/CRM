@@ -8,5 +8,11 @@ export default {
   loginBtn: 'Prijavi se', 
   logoutBtn: 'Odjavi se',
   password: 'Šifra',
-  welcome: 'Dobrodošli'
+  welcome: 'Dobrodošli',
+  users: 'Korisnici',
+  projects: 'Projekti',
+  loginSuccess: 'Uspješna prijava',
+  error: 'Greška',
+  loginError: 'Ovi kredencijali se ne slažu sa našim zapisima',
+  
 }

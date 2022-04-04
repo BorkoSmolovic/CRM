@@ -1,9 +1,9 @@
 const routes = [
   {
-    path: '/', name: 'Dashboard',
+    path: '/', name: 'Dashboard', redirect: '/Dashboard',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      {path: '', name: 'Dashboard', component: () => import('pages/Dashboard.vue')},
+      {path: '/Dashboard', name: 'Dashboard', component: () => import('pages/Dashboard.vue')},
       {path: '/Dashboard2', name: 'Dashboard2', component: () => import('pages/Dashboard2.vue')},
       {path: '/Profile', name: 'Profile', component: () => import('pages/UserProfile.vue')},
       {path: '/Map', name: 'Map', component: () => import('pages/Map.vue')},
@@ -22,6 +22,8 @@ const routes = [
       {path: '/Footer', name: 'Footer', component: () => import('pages/Footer.vue')},
       {path: '/CardHeader', name: 'CardHeader', component: () => import('pages/CardHeader.vue')},
 
+      {path: '/Users', name: 'Users', component: () => import('pages/Users.vue')},
+      {path: '/Projects', name: 'Projects', component: () => import('pages/Projects.vue')},
       // Not completed yet
       // {path: '/Taskboard', component: () => import('pages/TaskBoard.vue')},
     ]

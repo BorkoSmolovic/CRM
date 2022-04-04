@@ -28,17 +28,17 @@ export default route(function (/* { store, ssrContext } */) {
 
   Router.beforeEach((to, from, next) => {
 
-    //ruter provjerava da li je korisnik logovan za sve stranice razlicite osim login, 
-    //za provjeru se koristi metoda koja kontaktira server
-    //ukoliko nije logovan ruter odbija da ga prebaci
-    //u ostalom nastavlja normalno koristeci next()
+    //router checks for logged user on every page except login 
+    //check is provided by the server
+    //if user isnt authenticated router wont grant requests
+    //if user is authenticated router will work normally
 
       axios
         .get("/api/checkAuth")
         .then((response) => {
           //korisnik je ulogovan moze dalje
           if (to.name === 'Login') {
-            Router.push('/')
+            Router.push('/Dashboard')
           }else{
             next()
           }
@@ -51,6 +51,8 @@ export default route(function (/* { store, ssrContext } */) {
           }
         })
  
+        
+
   })
 
 
