@@ -30,6 +30,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'password',
+        'created_at',
+        'updated_at',
+        'two_factor_confirmed_at',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
+        'deleted_at',
+        'email_verified_at',
+        'remember_token'
     ];
 
     /**
@@ -50,4 +59,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class,'role_users')->withTimestamps();
     }
 
+    public function is($roleName)
+    {
+        foreach ($this->roles()->get() as $role)
+        {
+            if ($role->name == $roleName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

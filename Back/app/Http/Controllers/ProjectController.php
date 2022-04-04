@@ -15,15 +15,27 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-
         $page = $request->query("page");
         $size = $request->query("size");
 
-        if($page == null && $size == null)
-            return Project::all();
 
-//pagination takes only certain amount of records as instructed ffrom front
-        return Project::query()->skip($page*$size)->take($size)->get();
+        if ($request->user()->is("administrator")) {
+            if ($page == null && $size == null)
+                return Project::all();
+
+            //pagination takes only certain amount of records as instructed ffrom front
+            return Project::query()->skip($page * $size)->take($size)->get();
+        }
+
+        if ($page == null && $size == null)
+            return Project::all()->where('owner_id', $request->user()->id)->get();
+
+        //pagination takes only certain amount of records as instructed ffrom front
+        return Project::query()->skip($page * $size)->take($size)->get();
+
+
+        // $response['count'] = count(Project::all());
+
     }
 
     /**

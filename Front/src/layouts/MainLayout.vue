@@ -45,20 +45,28 @@
       class="bg-primary text-white"
     >
       <q-list>
-        <q-item to="/users" active-class="q-item-no-link-highlighting">
+        <q-item
+          v-show="isAdmin"
+          to="/users"
+          active-class="q-item-no-link-highlighting"
+        >
           <q-item-section avatar>
             <q-icon name="people_alt" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>{{$t('users')}}</q-item-label>
+            <q-item-label>{{ this.$t("users.pageTitle") }}</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item to="/projects" active-class="q-item-no-link-highlighting">
+        <q-item
+          v-show="!isAdmin"
+          to="/projects"
+          active-class="q-item-no-link-highlighting"
+        >
           <q-item-section avatar>
             <q-icon name="list_alt" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>{{$t('projects')}}</q-item-label>
+            <q-item-label>{{ this.$t("projects.pageTitle") }}</q-item-label>
           </q-item-section>
         </q-item>
         <!-- <q-item to="/" active-class="q-item-no-link-highlighting">
@@ -247,7 +255,7 @@
           </q-item-section>
         </q-item>
 
-       
+
         <q-item to="/Calendar" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="date_range" />
@@ -257,7 +265,7 @@
           </q-item-section>
         </q-item>
 
-     
+
                <q-item to="/Taskboard" active-class="q-item-no-link-highlighting">
                  <q-item-section avatar>
                    <q-icon name="done"/>
@@ -356,6 +364,8 @@ export default defineComponent({
   data() {
     return {
       username: "",
+      roles: [],
+      isAdmin: false,
     };
   },
   methods: {
@@ -369,6 +379,11 @@ export default defineComponent({
         .get("/api/user")
         .then((response) => {
           this.username = response.data.name;
+          response.data.roles.forEach(role => {
+            if(role.name == 'administrator'){
+              this.isAdmin=true;
+            }
+          });
         })
         .catch((error) => {
           //if user isnt logged he is pushed to login page

@@ -95,8 +95,15 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255|string',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
         ]);
+
+        // if user has changed his original mail ensure it is unique
+        if($request->email != $user->email) {
+            $request->validate([
+                'email' => 'unique:users',
+            ]);
+        }
 
         $user->update([
             'name' => $request->name,

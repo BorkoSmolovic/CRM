@@ -23,6 +23,9 @@ class ProjectStatus extends Model
      * @var array<int, string>
      */
     protected $hidden = [
+        'created_at',
+        'deleted_at',
+        'updated_at',
     ];
 
     /**
