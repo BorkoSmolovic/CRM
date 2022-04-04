@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('label')->nullable();
-            $table->boolean('is_Active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

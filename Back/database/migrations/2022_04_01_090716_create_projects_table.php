@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('deadline');
             $table->foreignId('status_id')->constrained('project_statuses')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('owner_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->boolean('is_Active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

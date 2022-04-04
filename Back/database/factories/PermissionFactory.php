@@ -19,7 +19,6 @@ class PermissionFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'label' => $this->faker->name(),
-            'is_Active' => $this->faker->boolean(true),
         ];
     }
 }
