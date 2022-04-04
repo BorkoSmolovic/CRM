@@ -17,7 +17,13 @@
           </q-card-section>
           <q-card-section>
             <q-form class="q-gutter-md">
-              <q-input filled v-model="email" label="Email" lazy-rules />
+              <q-input
+                filled
+                v-model="email"
+                label="Email"
+                lazy-rules
+                :rules="[(val) => val != !!val || this.$t('mandatoryField')]"
+              />
 
               <q-input
                 type="password"
@@ -25,6 +31,7 @@
                 v-model="password"
                 :label="$t('password')"
                 lazy-rules
+                :rules="[(val) => val != !!val || this.$t('mandatoryField')]"
               />
 
               <div>
@@ -55,6 +62,7 @@
 import { defineComponent } from "vue";
 import { ref } from "vue";
 import axios from "axios";
+import swal from 'vue-sweetalert2'
 
 export default defineComponent({
   name: "Login componenet",
@@ -80,15 +88,15 @@ export default defineComponent({
             this.$router.push("/");
             this.$swal({
               icon: "success",
-              title: this.$t('loginSuccess'),
+              title: this.$t("loginSuccess"),
               timer: 1500,
             });
           })
           .catch((error) => {
             this.$swal({
               icon: "error",
-              title: this.$t('error'),
-              text: this.$t('loginError'),
+              title: this.$t("error"),
+              text: this.$t("loginError"),
               timer: 3000,
             });
           });
