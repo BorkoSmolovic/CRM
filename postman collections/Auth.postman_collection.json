@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "4bb4ede3-27cc-4339-9557-675031e87d24",
+		"name": "Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Cookie",
+						"value": "XSRF-TOKEN=eyJpdiI6Ik53eWc2STltb1VGNGhSaUxiczhsWmc9PSIsInZhbHVlIjoiVFc5TU45OVVaVFZVN2xOdTBTNEJrQ0QvdFVhMmwyc1BJald0QWcxbGhrVmpYeDNBbjVqN0F3VzhpdXdWOGhxaldWd3NyRm9qc01GNHhLZDMxNVhxQk55d3J1QUJRYklFV2hDQUR4TkkwZG9xbUdLc0taWGI0dU85TGcvY0dTbWsiLCJtYWMiOiJhOTIyMjg0MmE4N2Y5OGJjNGRjZTUyOGRjYzNhMGNlMzFkNzI0Njg1YzRjMmJlYTVhZDg5NTc1NjA0ZjBjZTgzIiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6InFXd0J1eHhxWjVhQitnQ1F5ZDlhMmc9PSIsInZhbHVlIjoiaWFZbDJlR21XUjdYbFJ3blIwNGh2Z2Y4QnhQSVcvYjFlZ3R0WUprS0NCVW95bDhRbmw4SEhKcGRzMEI2ZXR0a1JnQnlxOU1FQjB4cC9DQXphbnhQWnhaZ29vd1FDWVY5MDNBMFBTSGRWblYxSS9jSDc1N1pGS29sUE9IS2pwbVMiLCJtYWMiOiI2ZDI3NjBkZjFkOTkzMzE3MDJhYjI3N2JmZmM4ZGY5MDQzZjRhZmIwNDIwMGU3ZDYwNjNmNWFjZTIyNDZmOTJkIiwidGFnIjoiIn0%3D",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"admin@gmail.com\",\n    \"password\" : \"admin.12\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Cookie",
+						"value": "XSRF-TOKEN=eyJpdiI6Ik53eWc2STltb1VGNGhSaUxiczhsWmc9PSIsInZhbHVlIjoiVFc5TU45OVVaVFZVN2xOdTBTNEJrQ0QvdFVhMmwyc1BJald0QWcxbGhrVmpYeDNBbjVqN0F3VzhpdXdWOGhxaldWd3NyRm9qc01GNHhLZDMxNVhxQk55d3J1QUJRYklFV2hDQUR4TkkwZG9xbUdLc0taWGI0dU85TGcvY0dTbWsiLCJtYWMiOiJhOTIyMjg0MmE4N2Y5OGJjNGRjZTUyOGRjYzNhMGNlMzFkNzI0Njg1YzRjMmJlYTVhZDg5NTc1NjA0ZjBjZTgzIiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6InFXd0J1eHhxWjVhQitnQ1F5ZDlhMmc9PSIsInZhbHVlIjoiaWFZbDJlR21XUjdYbFJ3blIwNGh2Z2Y4QnhQSVcvYjFlZ3R0WUprS0NCVW95bDhRbmw4SEhKcGRzMEI2ZXR0a1JnQnlxOU1FQjB4cC9DQXphbnhQWnhaZ29vd1FDWVY5MDNBMFBTSGRWblYxSS9jSDc1N1pGS29sUE9IS2pwbVMiLCJtYWMiOiI2ZDI3NjBkZjFkOTkzMzE3MDJhYjI3N2JmZmM4ZGY5MDQzZjRhZmIwNDIwMGU3ZDYwNjNmNWFjZTIyNDZmOTJkIiwidGFnIjoiIn0%3D",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/logout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
