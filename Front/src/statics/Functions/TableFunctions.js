@@ -1,5 +1,6 @@
 //array, filterArray, filters
 import axios from 'axios'
+import swal from 'vue-sweetalert2';
 /*---------------------------------- universal get method for tables  ----------------------------------------*/
 function getItems(api) {
   this.tableLoading = true;
@@ -12,6 +13,13 @@ function getItems(api) {
       this.data = response.data;
     })
     .catch((error) => {
+      if (error.response.status == 422) {
+        this.$swal({
+          title: "Error: "+error.response.status,
+          text: error.response.data.message,
+          icon: "error",
+        });
+        }
       this.tableLoading = false;
       //if user isnt logged he is pushed to login page
       if (error.response.status == 401) {
@@ -30,6 +38,13 @@ function getProjectStatuses() {
       this.projectStatuses = response.data;
     })
     .catch((error) => {
+      if (error.response.status == 422) {
+        this.$swal({
+          title: "Error: "+error.response.status,
+          text: error.response.data.message,
+          icon: "error",
+        });
+        }
       //if user isnt logged he is pushed to login page
       if (error.response.status == 401) {
         this.$router.push("/Login");
@@ -81,6 +96,13 @@ function deleteItem(api,item) {
           });
         })
         .catch((error) => {
+           if (error.response.status == 422) {
+          this.$swal({
+            title: "Error: "+error.response.status,
+            text: error.response.data.message,
+            icon: "error",
+          });
+          }
           //if user isnt logged he is pushed to login page
           if (error.response.status == 401) {
             this.$router.push("/Login");
@@ -102,6 +124,13 @@ function addItem(api) {
           this.$emit('itemAdded',response.data)
         })
         .catch((error) => {
+          if (error.response.status == 422) {
+          this.$swal({
+            title: "Error: "+error.response.status,
+            text: error.response.data.message,
+            icon: "error",
+          });
+          }
           //if user isnt logged he is pushed to login page
           if (error.response.status == 401) {
             this.$router.push("/Login");
@@ -123,6 +152,13 @@ function editItem(api) {
           this.$emit('itemUpdated',response.data)
         })
         .catch((error) => {
+          if (error.response.status == 422) {
+            this.$swal({
+              title: "Error: "+error.response.status,
+              text: error.response.data.message,
+              icon: "error",
+            });
+            }
           //if user isnt logged he is pushed to login page
           if (error.response.status == 401) {
             this.$router.push("/Login");

@@ -93,12 +93,13 @@ export default defineComponent({
             });
           })
           .catch((error) => {
-            this.$swal({
-              icon: "error",
-              title: this.$t("error"),
-              text: this.$t("loginError"),
-              timer: 3000,
-            });
+             if (error.response.status == 422) {
+          this.$swal({
+            title: "Error: "+error.response.status,
+            text: error.response.data.message,
+            icon: "error",
+          });
+          }
           });
       });
     },
