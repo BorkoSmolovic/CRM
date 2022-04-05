@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Project;
+use App\Models\User;
 
 class ProjectController extends Controller
 {
@@ -18,7 +19,6 @@ class ProjectController extends Controller
         $page = $request->query("page");
         $size = $request->query("size");
 
-
         if ($request->user()->is("administrator")) {
             if ($page == null && $size == null)
                 return Project::all();
@@ -28,7 +28,9 @@ class ProjectController extends Controller
         }
 
         if ($page == null && $size == null)
-            return Project::all()->where('owner_id', $request->user()->id)->get();
+            return Project::where('owner_id', $request->user()->id)->get();
+
+
 
         //pagination takes only certain amount of records as instructed ffrom front
         return Project::query()->skip($page * $size)->take($size)->get();
@@ -56,6 +58,9 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+
+        $id = $request->query("id");
+
         $request->validate([
             'title' => 'required|max:255|string',
             'description' => 'required|string',
@@ -64,13 +69,24 @@ class ProjectController extends Controller
 
         ]);
 
-        $project = Project::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'deadline' => $request->deadline,
-            'status_id' => $request->status_id,
-            'owner_id' => $request->user()->id,
-        ]);
+        if ($id) {
+            $project = Project::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'deadline' => $request->deadline,
+                'status_id' => $request->status_id,
+                'owner_id' => $id,
+            ]);
+        } else {
+            $project = Project::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'deadline' => $request->deadline,
+                'status_id' => $request->status_id,
+                'owner_id' => $request->user()->id,
+            ]);
+        }
+
 
         return Project::find($project->id);
     }

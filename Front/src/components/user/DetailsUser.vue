@@ -16,13 +16,15 @@
         </q-bar>
 
         <q-card-section>
-          <div class="text-h6">Alert</div>
+          <div class="text-h6">{{tempItem.name}}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
 
           <projects
           :api="api"
+          :adminAddApi="adminAddApi"
+          :tempUserItem="tempItem"
           ></projects>
 
           </q-card-section>
@@ -41,7 +43,8 @@ export default {
   },
   data(){
     return{
-      api:""
+      api:"",
+      adminAddApi:"",
     }
   },
   props:{
@@ -54,9 +57,17 @@ export default {
     )
   },
   watch:{
+    //from prop item gets user id and returns its projects
     tempItem(val){
       this.api = "projects/" + val.id
+      this.adminAddApi = "projects?id=" + val.id
     }
   }
 }
 </script>
+
+<style scoped>
+.swal2-container {
+  z-index: 10000;
+}
+</style>

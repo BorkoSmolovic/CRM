@@ -51,7 +51,7 @@
                 class="q-ml-sm"
                 flat
                 dense
-                @click="deleteItem(api, props.row)"
+                @click="deleteItem('projects', props.row)"
               />
             </q-td>
           </template>
@@ -59,14 +59,13 @@
       </q-card-section>
     </q-card>
     <add-project
-      :api="api"
+      :api="adminAddApi"
       :openAddDialog="openAddDialog"
       :projectStatuses="projectStatuses"
       @closeAddDialog="openAddDialog = false"
       @itemAdded="updateTable($event)"
     ></add-project>
     <edit-project
-      :api="api"
       :openEditDialog="openEditDialog"
       :projectStatuses="projectStatuses"
       @closeEditDialog="openEditDialog = false"
@@ -113,6 +112,14 @@ export default defineComponent({
     };
   },
   props: {
+    tempUserItem:{
+      type: Object,
+      default: null,
+    },
+    adminAddApi:{
+      type: String,
+      default: "projects",
+    },
     api: {
       type: String,
       default: "projects",
@@ -127,6 +134,13 @@ export default defineComponent({
   mounted() {
     this.getItems(this.api);
     this.getProjectStatuses();
+  },
+  watch:{
+    tempUserItem(val){
+      if(val.id){
+        this.adminAddApi = "projects?id="+val.id;
+      }
+    }
   },
   computed: {
     columns() {

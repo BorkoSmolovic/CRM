@@ -87,7 +87,6 @@ export default {
   },
   data() {
     return {
-      api:'projects',
       translation:'projects',
       status: null,
       form: {
@@ -99,6 +98,10 @@ export default {
     };
   },
   props: {
+    api: {
+    default: 'projects',
+    type: String
+  },
     openAddDialog: false,
     projectStatuses: null,
   },
