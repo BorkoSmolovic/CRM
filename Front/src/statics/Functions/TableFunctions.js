@@ -1,8 +1,13 @@
 //array, filterArray, filters
 import axios from 'axios'
 import swal from 'vue-sweetalert2';
+import {
+  Loading,
+  QSpinnerGears
+} from 'quasar'
 /*---------------------------------- universal get method for tables  ----------------------------------------*/
 function getItems(api) {
+  Loading.show()
   this.tableLoading = true;
   axios
     .get(
@@ -11,6 +16,7 @@ function getItems(api) {
     .then((response) => {
       this.tableLoading = false;
       this.data = response.data;
+      Loading.hide()
     })
     .catch((error) => {
       if (error.response.status == 422) {
@@ -25,6 +31,7 @@ function getItems(api) {
       if (error.response.status == 401) {
         this.$router.push("/Login");
       }
+      Loading.hide()
     });
   this.tableLoading = false;
 }
@@ -85,6 +92,7 @@ function deleteItem(api,item) {
   }).then((result) => {
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
+      Loading.show()
       axios
         .delete("/api/"+api+"/" + item.id)
         .then((response) => {
@@ -94,6 +102,7 @@ function deleteItem(api,item) {
             title: this.$t(api+'.deleted'),
             timer: 1500,
           });
+          Loading.hide()
         })
         .catch((error) => {
            if (error.response.status == 422) {
@@ -107,6 +116,7 @@ function deleteItem(api,item) {
           if (error.response.status == 401) {
             this.$router.push("/Login");
           }
+          Loading.hide()
         });
     }
   });
@@ -115,13 +125,16 @@ function deleteItem(api,item) {
 /*---------------------------------- universal add item method ----------------------------------------*/
 
 function addItem(api) {
+
   //check if required fields are filled
   this.$refs.form.validate().then((success) => {
     if (success) {
+      Loading.show()
       axios
         .post("/api/"+this.api, this.form)
         .then((response) => {
           this.$emit('itemAdded',response.data)
+          Loading.hide()
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -135,6 +148,7 @@ function addItem(api) {
           if (error.response.status == 401) {
             this.$router.push("/Login");
           }
+          Loading.hide()
         });
     }
   });
@@ -146,10 +160,12 @@ function editItem(api) {
   //check if required fields are filled
   this.$refs.form.validate().then((success) => {
     if (success) {
+      Loading.show()
       axios
         .put("/api/"+api+"/"+this.tempItem.id, this.form)
         .then((response) => {
           this.$emit('itemUpdated',response.data)
+          Loading.hide()
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -163,6 +179,7 @@ function editItem(api) {
           if (error.response.status == 401) {
             this.$router.push("/Login");
           }
+          Loading.hide()
         });
     }
   });
