@@ -28,7 +28,7 @@ export default route(function (/* { store, ssrContext } */) {
 
   Router.beforeEach((to, from, next) => {
 
-    //router checks for logged user on every page except login 
+    //router checks for logged user on every page except login
     //check is provided by the server
     //if user isnt authenticated router wont grant requests
     //if user is authenticated router will work normally
@@ -37,21 +37,21 @@ export default route(function (/* { store, ssrContext } */) {
         .get("/api/checkAuth")
         .then((response) => {
           //korisnik je ulogovan moze dalje
-          if (to.name === 'Login') {
+          if (to.auth === false) {
             Router.push('/Dashboard')
           }else{
             next()
           }
         }).catch(error => {
           //korisnik nije ulogovan, redirekt na login stranu
-          if (to.name !== 'Login') {
+          if (to.auth === true) {
             Router.push('/Login')
           }else{
             next()
           }
         })
- 
-        
+
+
 
   })
 

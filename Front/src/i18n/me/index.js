@@ -23,6 +23,13 @@ export default {
   close: 'Zatvori',
   add:'Dodaj',
   edit: 'Izmijeni',
+  resetPasswordTitle: 'Izmijeni šifru',
+  newPassword: 'Nova šifra',
+  confirmPassword: 'Potvrdite šifru',
+  resetPasswordBtn: 'Izmijeni',
+  passwordChangeSuccess: 'Šifra uspješno izmijenjena',
+  passwordMatchError: 'Šifre se moraju podudarati',
+  minLength: 'Minimalna dužina je 8 karaktera',
   projects: {
     pageTitle: 'Projekti',
     created:'Projekat uspješno dodat',

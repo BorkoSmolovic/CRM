@@ -23,6 +23,13 @@ export default {
   close: 'Close',
   add:'Add',
   edit: 'Edit',
+  resetPasswordTitle: 'Change password',
+  newPassword: 'New password',
+  confirmPassword: 'Confirm password',
+  resetPasswordBtn: 'Change',
+  passwordChangeSuccess: 'Password changed succesfully',
+  passwordMatchError: 'Passwords must match',
+  minLength: 'Minimum length is 8 characters',
   projects: {
     pageTitle:'Projects',
     created:'Project created successfully',

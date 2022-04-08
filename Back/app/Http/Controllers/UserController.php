@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
 {
@@ -58,6 +59,10 @@ class UserController extends Controller
 
         //attach role to created user
         $user->roles()->attach(2);
+
+        Password::sendResetLink(
+            $request->only('email')
+        );
 
         return User::find($user->id);
     }

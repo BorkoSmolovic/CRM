@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NewPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Project;
@@ -7,6 +8,7 @@ use App\Models\User;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectStatusController;
+use Laravel\Fortify\Http\Controllers\NewPasswordController as ControllersNewPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +54,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //projectstatus
     Route::get('/projectStatuses', [ProjectStatusController::class, 'index']);
 });
+
+Route::post('/reset-password', [NewPasswordController::class, 'store'])->name("password.reset");
