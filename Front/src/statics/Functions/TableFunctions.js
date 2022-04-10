@@ -29,6 +29,8 @@ function getItems(api) {
       this.tableLoading = false;
       //if user isnt logged he is pushed to login page
       if (error.response.status == 401) {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('accessToken');
         this.$router.push("/Login");
       }
       Loading.hide()
@@ -54,6 +56,8 @@ function getProjectStatuses() {
         }
       //if user isnt logged he is pushed to login page
       if (error.response.status == 401) {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('accessToken');
         this.$router.push("/Login");
       }
     });
@@ -114,6 +118,8 @@ function deleteItem(api,item) {
           }
           //if user isnt logged he is pushed to login page
           if (error.response.status == 401) {
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('accessToken');
             this.$router.push("/Login");
           }
           Loading.hide()
@@ -146,6 +152,8 @@ function addItem(api) {
           }
           //if user isnt logged he is pushed to login page
           if (error.response.status == 401) {
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('accessToken');
             this.$router.push("/Login");
           }
           Loading.hide()
@@ -177,6 +185,8 @@ function editItem(api) {
             }
           //if user isnt logged he is pushed to login page
           if (error.response.status == 401) {
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('accessToken');
             this.$router.push("/Login");
           }
           Loading.hide()

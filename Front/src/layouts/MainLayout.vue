@@ -370,27 +370,20 @@ export default defineComponent({
   },
   methods: {
     logout() {
-      axios.post("/logout").then((response) => {
+       axios.post("/api/logout").then((response) => {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('accessToken');
         this.$router.push("/Login");
       });
     },
     getUserInfo() {
-      axios
-        .get("/api/user")
-        .then((response) => {
-          this.username = response.data.name;
-          response.data.roles.forEach(role => {
-            if(role.name == 'administrator'){
-              this.isAdmin=true;
-            }
-          });
-        })
-        .catch((error) => {
-          //if user isnt logged he is pushed to login page
-          if (error.response.status == 401) {
-            this.$router.push("/Login");
-          }
-        });
+       let user = JSON.parse(sessionStorage.getItem("user"));
+       this.username = user.name;
+       user.roles.forEach((role) => {
+        if (role.name == "administrator") {
+          this.isAdmin = true;
+        }
+      });
     },
   },
   created() {

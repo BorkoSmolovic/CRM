@@ -62,7 +62,7 @@
 import { defineComponent } from "vue";
 import { ref } from "vue";
 import axios from "axios";
-import swal from 'vue-sweetalert2'
+import swal from "vue-sweetalert2";
 
 export default defineComponent({
   name: "Login componenet",
@@ -78,30 +78,31 @@ export default defineComponent({
   },
   methods: {
     login() {
-      axios.get("/sanctum/csrf-cookie").then((response) => {
-        axios
-          .post("/login", {
-            email: this.email,
-            password: this.password,
-          })
-          .then((response) => {
-            this.$router.push("/");
-            this.$swal({
-              icon: "success",
-              title: this.$t("loginSuccess"),
-              timer: 1500,
-            });
-          })
-          .catch((error) => {
-             if (error.response.status == 422) {
+      axios
+        .post("/api/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((response) => {
+            axios.defaults.headers.common['Authorization'] = "Bearer "+response.data.accessToken;
+            sessionStorage.setItem('user', JSON.stringify(response.data.user));
+            sessionStorage.setItem('accessToken', JSON.stringify(response.data.accessToken));
+          this.$router.push("/");
           this.$swal({
-            title: "Error: "+error.response.status,
-            text: error.response.data.message,
-            icon: "error",
+            icon: "success",
+            title: this.$t("loginSuccess"),
+            timer: 1500,
           });
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.$swal({
+              title: "Error: " + error.response.status,
+              text: error.response.data.message,
+              icon: "error",
+            });
           }
-          });
-      });
+        });
     },
   },
 });
