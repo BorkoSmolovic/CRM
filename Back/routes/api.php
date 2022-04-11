@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NewPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,7 +22,7 @@ use Laravel\Fortify\Http\Controllers\NewPasswordController as ControllersNewPass
 |
 */
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:api']], function () {
 
     //logged user data
     Route::get('/user', function (Request $request) {
@@ -53,6 +54,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //projectstatus
     Route::get('/projectStatuses', [ProjectStatusController::class, 'index']);
+
+    //logout
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 Route::post('/reset-password', [NewPasswordController::class, 'store'])->name("password.reset");
+Route::post('/login', [AuthController::class, 'login']);
+

@@ -30,28 +30,17 @@ export default route(function (/* { store, ssrContext } */) {
 
     //router checks for logged user on every page except login
     //check is provided by the server
+    //check is provided by the session storage
     //if user isnt authenticated router wont grant requests
     //if user is authenticated router will work normally
 
-      axios
-        .get("/api/checkAuth")
-        .then((response) => {
-          //korisnik je ulogovan moze dalje
-          if (to.auth === false) {
-            Router.push('/Dashboard')
-          }else{
-            next()
-          }
-        }).catch(error => {
-          //korisnik nije ulogovan, redirekt na login stranu
-          if (to.auth === true) {
-            Router.push('/Login')
-          }else{
-            next()
-          }
-        })
-
-
+    if (!to.meta.auth && sessionStorage.getItem('user')) {
+      Router.push('/')
+    } else if (to.meta.auth && !sessionStorage.getItem('user')) {
+      Router.push('/Login')
+    } else {
+      next()
+    }
 
   })
 

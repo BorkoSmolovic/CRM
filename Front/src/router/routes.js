@@ -1,9 +1,9 @@
 const routes = [
   {
-    path: '/', name: 'Dashboard', auth: true,
+    path: '/', name: 'Dashboard', meta: {auth: true},
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      {path: '/Dashboard', name: 'Dashboard', auth: true, component: () => import('pages/Dashboard.vue')},
+      {path: '/Dashboard', name: 'Dashboard', meta: {auth: true}, component: () => import('pages/Dashboard.vue')},
       {path: '/Dashboard2', name: 'Dashboard2',auth: true, component: () => import('pages/Dashboard2.vue')},
       {path: '/Profile', name: 'Profile',auth: true, component: () => import('pages/UserProfile.vue')},
       {path: '/Map', name: 'Map',auth: true, component: () => import('pages/Map.vue')},
@@ -22,8 +22,8 @@ const routes = [
       {path: '/Footer', name: 'Footer',auth: true, component: () => import('pages/Footer.vue')},
       {path: '/CardHeader', name: 'CardHeader',auth: true, component: () => import('pages/CardHeader.vue')},
 
-      {path: '/Users', name: 'Users',auth: true, component: () => import('pages/Users.vue')},
-      {path: '/Projects', name: 'Projects',auth: true, component: () => import('pages/Projects.vue')},
+      {path: '/Users', name: 'Users',meta: {auth: true}, component: () => import('pages/Users.vue')},
+      {path: '/Projects', name: 'Projects',meta: {auth: true}, component: () => import('pages/Projects.vue')},
       // Not completed yet
       // {path: '/Taskboard', component: () => import('pages/TaskBoard.vue')},
     ]
@@ -48,7 +48,7 @@ const routes = [
     component: () => import('pages/Pricing.vue')
   },
   {
-    path: '/Login', auth: false, name: 'Login',
+    path: '/Login', meta: {auth: false}, name: 'Login',
     component: () => import('pages/Login-1.vue')
   },
   {
